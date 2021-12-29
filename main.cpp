@@ -59,6 +59,7 @@ int main(){
         case 0:
             //退出系统，可能面临数据的写入
             /* code */
+            cout<<"Welcome your next accessment.\n";
             break;
         default:
             cout<<"You have entered a wrong input, please check your input and reinput again.\n";

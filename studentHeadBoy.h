@@ -14,6 +14,7 @@ public:
     void showMyOrders() const;  //查看自身的预约
     void showAllOrders() const; //查看所有人的预约
     void cancelOrder(); //取消预约
+    ~StudentHeadBoy();
     //私有数据的公共接口
     //set
     void setId(const int _id);

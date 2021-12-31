@@ -13,6 +13,7 @@ public:
     void showPersons() const;
     void showComputerRooms() const;
     void cleanData();   
+    virtual void identitySubMenu();
 };
 
 #endif

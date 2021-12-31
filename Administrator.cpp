@@ -37,3 +37,8 @@ void Administrator::showComputerRooms() const{
 void Administrator::cleanData(){
     
 }
+
+//重写子菜单函数
+void Administrator::identitySubMenu(){
+    //动态多态在运行时才初始化
+}

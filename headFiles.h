@@ -7,6 +7,8 @@
 #include "studentHeadBoy.h"
 #include "Teacher.h"
 #include "Administrator.h"
+#include "Constant.h"
+
 
 using namespace std;
 

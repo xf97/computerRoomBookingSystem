@@ -8,11 +8,13 @@
 #include "Teacher.h"
 #include "Administrator.h"
 #include "Constant.h"
+//#include "headFiles.h"
 #include <functional>   //为使用哈希函数
 #include <fstream>
 #include <map>
 #include <vector>
 using namespace std;
+
 
 //定义于此的功能是一些公共函数，或者模板函数
 
@@ -25,6 +27,12 @@ void showMenu(){
     cout<<"3. Administrators\n";
     cout<<"0. Quit\n";
     cout<<"--------------------\n";
+}
+
+//用于在linux上暂停终端
+void pauseLinuxShell(){
+    cin.get();
+    cin.get();
 }
 
 //抽象为模板函数
@@ -45,55 +53,56 @@ void input(inputType & content, //接收输入的参数
     }
 }
 
+
+
+// //获取文件信息
+// void getStuTeaAccountInfo(map<int, vector<string>> & infoMap, const string & fileName){
+//     //编号不会重复
+//     ifstream ifs(fileName, ios::in);    //读取文件
+//     if(!ifs.is_open()){
+//         //打开文件失败
+//         cerr<<"Open data file failed, please check.--"<<fileName<<endl;
+//         return;
+//     }
+//     //读取
+//     int id = 0;
+//     string accountName = "";
+//     string password = "";
+//     while(ifs>>id && ifs>>accountName && ifs>>password){
+//         infoMap.insert(make_pair(id, vector<string>{accountName, password}));
+//     }
+// } 
+
+// //获取文件信息
+// void getAdminInfo(map<string, string> & infoMap, const string & fileName){
+//     //编号不会重复
+//     ifstream ifs(fileName, ios::in);    //读取文件
+//     if(!ifs.is_open()){
+//         //打开文件失败
+//         cerr<<"Open data file failed, please check.--"<<fileName<<endl;
+//         return;
+//     }
+//     //读取
+//     string accountName = "";
+//     string password = "";
+//     while(ifs>>accountName && ifs>>password){
+//         infoMap.insert(make_pair(accountName, password));
+//     }
+// } 
+
 //初始化函数
 /*
 studentAccountInfo--学生账户信息
 teacherAccountInfo--老师账户信息
 adminAccountInfo--管理员账户信息
 */
-void initSystem(map<int, vector<string>> & studentAccountInfo, 
-                map<int, vector<string>> & teacherAccountInfo,
-                map<string, string> & adminAccountInfo){
-    getStuTeaAccountInfo(studentAccountInfo, STUDENT_FILE);
-    getStuTeaAccountInfo(teacherAccountInfo, TEACHER_FILE);
-    getAdminInfo(adminAccountInfo, ADMIN_FILE);
-}
-
-//获取文件信息
-void getStuTeaAccountInfo(map<int, vector<string>> & infoMap, const string & fileName){
-    //编号不会重复
-    ifstream ifs(fileName, ios::in);    //读取文件
-    if(!ifs.is_open()){
-        //打开文件失败
-        cerr<<"Open data file failed, please check.--"<<fileName<<endl;
-        return;
-    }
-    //读取
-    int id = 0;
-    string accountName = "";
-    string password = "";
-    while(ifs>>id && ifs>>accountName && ifs>>password){
-        infoMap.insert(make_pair(id, vector<string>{accountName, password}));
-    }
-} 
-
-//获取文件信息
-void getAdminInfo(map<string, string> & infoMap, const string & fileName){
-    //编号不会重复
-    ifstream ifs(fileName, ios::in);    //读取文件
-    if(!ifs.is_open()){
-        //打开文件失败
-        cerr<<"Open data file failed, please check.--"<<fileName<<endl;
-        return;
-    }
-    //读取
-    string accountName = "";
-    string password = "";
-    while(ifs>>accountName && ifs>>password){
-        infoMap.insert(make_pair(accountName, password));
-    }
-} 
-
+// void initSystem(map<int, vector<string>> & studentAccountInfo, 
+//                 map<int, vector<string>> & teacherAccountInfo,
+//                 map<string, string> & adminAccountInfo){
+//     getStuTeaAccountInfo(studentAccountInfo, STUDENT_FILE);
+//     getStuTeaAccountInfo(teacherAccountInfo, TEACHER_FILE);
+//     getAdminInfo(adminAccountInfo, ADMIN_FILE);
+// }
 //登录函数
 //_fileName, 操作的文件名
 //_type, 登录的身份，1-学生，2-老师，3-管理员

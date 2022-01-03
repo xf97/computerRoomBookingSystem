@@ -65,8 +65,9 @@ int main(){
             cout<<"You have entered a wrong input, please check your input and reinput again.\n";
             break;
         }
-        system("pause");
-        system("cls");
+        //system("pause");  //此句话forwindows
+        pauseLinuxShell();
+        system("clear");
     }
     cout<<"Already quit this system.\n";
     return 0;

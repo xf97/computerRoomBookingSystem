@@ -1,5 +1,11 @@
 #include "Administrator.h"
 
+
+//导入于其他头文件中定义的函数
+extern void LoginIn(const string & _fileName, const int _type);
+template<typename inputType> extern  void input(inputType & content,  const string & tips);
+extern void pauseLinuxShell();
+
 //管理员身份实现文件
 
 //默认构造
@@ -41,4 +47,13 @@ void Administrator::cleanData(){
 //重写子菜单函数
 void Administrator::identitySubMenu(){
     //动态多态在运行时才初始化
+    cout<<"Welcome adminstrator -- "<<getAccountName()<<endl;
+    cout<<"----------------------------------------- \n";
+    cout<<"| 1. add new person \n";
+    cout<<"| 2. check all persons \n";
+    cout<<"| 3. check all computer rooms \n";
+    cout<<"| 4. delete all orders \n";
+    cout<<"| 0. log out \n";
+    cout<<"----------------------------------------- \n";
+    return;
 }

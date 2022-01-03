@@ -8,7 +8,6 @@
 #include "Teacher.h"
 #include "Administrator.h"
 #include "Constant.h"
-//#include "headFiles.h"
 #include <functional>   //为使用哈希函数
 #include <fstream>
 #include <map>
@@ -24,7 +23,7 @@ void showMenu(){
     cout<<"--------------------\n";
     cout<<"1. Student head boy\n";
     cout<<"2. Teacher\n";
-    cout<<"3. Administrators\n";
+    cout<<"3. Administrator\n";
     cout<<"0. Quit\n";
     cout<<"--------------------\n";
 }
@@ -103,10 +102,49 @@ adminAccountInfo--管理员账户信息
 //     getStuTeaAccountInfo(teacherAccountInfo, TEACHER_FILE);
 //     getAdminInfo(adminAccountInfo, ADMIN_FILE);
 // }
+
+//进入管理员子菜单页面
+//此处传入的是指针的引用
+void administratorMenu(Identity * &admin){
+    int choose = -1;
+    while(choose != 0){
+        //以指针形式传入基类指针，通过动态多态转成派生类指针后行使子类功能
+        admin->identitySubMenu();   //由于此函数基类纯虚，因此此处调用的是admin子类的
+        //转换指针
+        Administrator * realAdmin =  dynamic_cast<Administrator *>(admin);
+        input(choose, "Please give your choose: ");
+        switch (choose)
+        {
+            case 1:
+                //添加新人
+                break;
+            case 2:
+                //老师身份
+                //查看当前所有账号
+                break;
+            case 3:
+                //查看当前的机房
+                break;
+            case 4:
+                //取消当前所有预约
+                break;
+            case 0:
+                //退出菜单，可能面临数据的写入
+                break;
+            default:
+                cout<<"You have entered a wrong input, please check your input and reinput again.\n";
+                break;
+            }
+        }
+    cout<<"Already back to upper menu.\n";
+    return;
+}
+        
+
 //登录函数
 //_fileName, 操作的文件名
 //_type, 登录的身份，1-学生，2-老师，3-管理员
-void LoginIn(const string & _fileName, const int _type){
+void LogIn(const string & _fileName, const int _type){
     //工厂模式，动态多态
     Identity * person = nullptr;
     //要读取文件
@@ -141,7 +179,6 @@ void LoginIn(const string & _fileName, const int _type){
     // hash<string> hashStr;
     // size_t hashPassword = hashStr(password);    //仿函数调用 
     //现在应该是要校验
-    bool successFlag = false;   //登录成功标志
     if(_type == STUDENT_HEAD_BOY_TYPE){
         //学生登录校验
         //读取文件
@@ -151,7 +188,6 @@ void LoginIn(const string & _fileName, const int _type){
         while(ifs>>realId && ifs>>realAccountName && ifs>>realPassword){
             //匹配
             if(realId == id && realAccountName == accountName && realPassword == password){
-                successFlag = true;
                 //初始化指针
                 person = new StudentHeadBoy(id, accountName, password);
             }
@@ -166,7 +202,6 @@ void LoginIn(const string & _fileName, const int _type){
         while(ifs>>realId && ifs>>realAccountName && ifs>>realPassword){
             //匹配
             if(realId == id && realAccountName == accountName && realPassword == password){
-                successFlag = true;
                 //初始化指针
                 person = new Teacher(id, accountName, password);
             }
@@ -181,19 +216,21 @@ void LoginIn(const string & _fileName, const int _type){
         while(ifs>>realAccountName && ifs>>realPassword){
             //匹配
             if(realAccountName == accountName && realPassword == password){
-                successFlag = true;
                 //初始化指针
                 person = new Administrator(accountName, password);
+                //进入管理员身份的子菜单
+                administratorMenu(person);
             }
         }
     }
-    if(successFlag){
-        cout<<"Successful login. Hello, "<<accountName<<endl;
-        //转入person身份的子菜单
-    }
-    else{
-        cout<<"Failed login, please check your account name and password, and re-input again.\n";
-    }
+    // if(successFlag){
+    //     cout<<"Successful login. Hello, "<<accountName<<endl;
+    //     //转入person身份的子菜单
+    //     person->identitySubMenu();  //展示菜单
+    // }
+    // else{
+    //     cout<<"Failed login, please check your account name and password, and re-input again.\n";
+    // }
     return;
 }
 

@@ -9,8 +9,10 @@ Identity::Identity(string _accountName, string _password){
     accountName = _accountName;
     password = _password;
     //要避免空账号重复
-    srand((unsigned int)time(NULL));
-    accountName += to_string(rand() % 10000);
+    if(_accountName == "None"){
+        srand((unsigned int)time(NULL));
+        accountName += to_string(rand() % 10000);
+    }
 }
 
 //析构函数

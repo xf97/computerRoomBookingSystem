@@ -1,7 +1,8 @@
 {
   "files.associations": {
     "vector": "cpp",
-    "fstream": "cpp"
+    "fstream": "cpp",
+    "iostream": "cpp"
   },
   "terminal.integrated.fontFamily": "Menlo for Powerline",
   "C_Cpp_Runner.cCompilerPath": "/usr/bin/gcc",

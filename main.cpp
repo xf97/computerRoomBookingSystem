@@ -46,15 +46,15 @@ int main(){
         {
         case 1:
             //学生身份
-            LoginIn(STUDENT_FILE, STUDENT_HEAD_BOY_TYPE);
+            LogIn(STUDENT_FILE, STUDENT_HEAD_BOY_TYPE);
             break;
         case 2:
             //老师身份
-            LoginIn(TEACHER_FILE, TEACHER_TYPE);
+            LogIn(TEACHER_FILE, TEACHER_TYPE);
             break;
         case 3:
             //管理员身份
-            LoginIn(ADMIN_FILE, ADMINISTRATOR_TYPE);
+            LogIn(ADMIN_FILE, ADMINISTRATOR_TYPE);
             break;
         case 0:
             //退出系统，可能面临数据的写入

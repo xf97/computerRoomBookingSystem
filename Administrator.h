@@ -1,5 +1,5 @@
 #ifndef ADMINISTRATOR_H
-#define ADMINISTRATOR_H
+#define ADMINISTRATOR_H 1
 
 //管理员身份实现类
 #include "identity.h"

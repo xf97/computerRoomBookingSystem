@@ -1,5 +1,5 @@
 #ifndef PUBLICFEATURE_H
-#define PUBLICFEATURE_H
+#define PUBLICFEATURE_H 1
 
 #include <string>
 #include <iostream>
@@ -117,16 +117,19 @@ void administratorMenu(Identity * &admin){
         {
             case 1:
                 //添加新人
+                realAdmin->addPerson();
                 break;
             case 2:
-                //老师身份
                 //查看当前所有账号
+                realAdmin->showPersons();
                 break;
             case 3:
                 //查看当前的机房
+                realAdmin->showComputerRooms();
                 break;
             case 4:
                 //取消当前所有预约
+                realAdmin->cleanData();
                 break;
             case 0:
                 //退出菜单，可能面临数据的写入
@@ -137,6 +140,9 @@ void administratorMenu(Identity * &admin){
             }
         }
     cout<<"Already back to upper menu.\n";
+    //要注意回收指针空间，两个指针指向了同一个内存
+    delete admin;
+    admin = nullptr;
     return;
 }
         

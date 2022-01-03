@@ -1,5 +1,5 @@
 #ifndef TEACHER_H
-#define TEACHER_H
+#define TEACHER_H 1
 
 //老师身份实现类
 /*

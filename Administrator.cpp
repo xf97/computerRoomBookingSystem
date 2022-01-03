@@ -1,4 +1,5 @@
 #include "Administrator.h"
+#include <functional>   //为使用哈希函数
 
 
 //导入于其他头文件中定义的函数

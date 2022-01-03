@@ -1,5 +1,5 @@
 #ifndef HEADFILES_H
-#define HEADFILES_H
+#define HEADFILES_H 1
 
 #include <iostream>
 #include "publicFeature.hpp"

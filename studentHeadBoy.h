@@ -1,5 +1,5 @@
 #ifndef STUDENTHEADBOY_H
-#define STUDENTHEADBOY_H
+#define STUDENTHEADBOY_H 1
 
 //定义学生代表类
 #include "identity.h"

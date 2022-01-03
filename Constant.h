@@ -1,5 +1,5 @@
 #ifndef CONSTANT_H
-#define CONSTANT_H
+#define CONSTANT_H 1
 
 //常量信息定义于此
 #include <string>

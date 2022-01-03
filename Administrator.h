@@ -3,6 +3,13 @@
 
 //管理员身份实现类
 #include "identity.h"
+#include <functional> //为使用哈希函数
+#include <iostream>
+#include "publicFeature.hpp"    //使用一些公共函数
+#include <string>
+#include <fstream>
+#include "Constant.h"
+
 
 class Administrator: public Identity{
 public:

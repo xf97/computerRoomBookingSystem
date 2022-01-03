@@ -12,7 +12,9 @@
 #include <fstream>
 #include <map>
 #include <vector>
+#include <numeric>
 using namespace std;
+
 
 
 //定义于此的功能是一些公共函数，或者模板函数
@@ -44,7 +46,10 @@ void input(inputType & content, //接收输入的参数
         if(cin.fail()){
             //先clear再sync
             cin.clear();
-            cin.sync();
+            //cin.sync(); ubuntu上无法清空
+            cin.ignore(INT64_MAX, '\n');
+            //要清空输入缓冲区
+            //cin.get();
             cout<<"Input is wrong type, please check your input and reinput agian: ";
             continue;
         }
@@ -111,7 +116,7 @@ void administratorMenu(Identity * &admin){
         //以指针形式传入基类指针，通过动态多态转成派生类指针后行使子类功能
         admin->identitySubMenu();   //由于此函数基类纯虚，因此此处调用的是admin子类的
         //转换指针
-        Administrator * realAdmin =  dynamic_cast<Administrator *>(admin);
+        Administrator * realAdmin =  (Administrator *)admin;
         input(choose, "Please give your choose: ");
         switch (choose)
         {
@@ -139,7 +144,7 @@ void administratorMenu(Identity * &admin){
                 break;
             }
         }
-    cout<<"Already back to upper menu.\n";
+    cout<<"Already back to upper menu, press any key to continue.\n";
     //要注意回收指针空间，两个指针指向了同一个内存
     delete admin;
     admin = nullptr;
@@ -185,6 +190,7 @@ void LogIn(const string & _fileName, const int _type){
     // hash<string> hashStr;
     // size_t hashPassword = hashStr(password);    //仿函数调用 
     //现在应该是要校验
+    bool successFlag = false;   //登录成功标志
     if(_type == STUDENT_HEAD_BOY_TYPE){
         //学生登录校验
         //读取文件
@@ -195,6 +201,7 @@ void LogIn(const string & _fileName, const int _type){
             //匹配
             if(realId == id && realAccountName == accountName && realPassword == password){
                 //初始化指针
+                successFlag = true;
                 person = new StudentHeadBoy(id, accountName, password);
             }
         }
@@ -209,6 +216,7 @@ void LogIn(const string & _fileName, const int _type){
             //匹配
             if(realId == id && realAccountName == accountName && realPassword == password){
                 //初始化指针
+                successFlag = true;
                 person = new Teacher(id, accountName, password);
             }
         }
@@ -223,13 +231,16 @@ void LogIn(const string & _fileName, const int _type){
             //匹配
             if(realAccountName == accountName && realPassword == password){
                 //初始化指针
+                successFlag = true;
                 person = new Administrator(accountName, password);
                 //进入管理员身份的子菜单
                 administratorMenu(person);
             }
         }
     }
-    // if(successFlag){
+    if(!successFlag){
+        cerr<<"Failed login, please check your account name and password, and re-input again, press any key to continue.\n";
+    }
     //     cout<<"Successful login. Hello, "<<accountName<<endl;
     //     //转入person身份的子菜单
     //     person->identitySubMenu();  //展示菜单

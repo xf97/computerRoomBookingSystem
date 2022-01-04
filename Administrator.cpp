@@ -2,10 +2,13 @@
 
 
 
-//导入于其他头文件中定义的函数
+//导入于其他头文件中定义的函数，避免循环依赖
 extern void LogIn(const string & _fileName, const int _type);
 template<typename inputType> extern  void input(inputType & content,  const string & tips);
 extern void pauseLinuxShell();
+template<typename inputType> extern void inputSpecificValue(inputType & content, 
+                                                  const string & tips, 
+                                                  const vector<inputType> &  candidateValues);
 
 //管理员身份实现文件
 
@@ -17,7 +20,7 @@ Administrator::Administrator(): Identity(){
 //有参构造
 Administrator::Administrator(const string & _accountName, const string & _password):
                Identity(_accountName, _password){
-    initIdSet();
+    init();
 }
 
 //析构函数
@@ -26,7 +29,7 @@ Administrator::~Administrator(){
 }
 
 //初始化已有的id集合
-void Administrator::initIdSet(){
+void Administrator::init(){
     //读文件
     //先读学生的
     studentIds.clear();
@@ -37,10 +40,13 @@ void Administrator::initIdSet(){
         return;
     }
     int id = -1;    
-    string cache = "";  //缓存
-    while(ifs>>id && ifs>>cache && ifs>>cache){
+    string accountName = "";  //账号
+    string cache = "";  //密码缓存
+    while(ifs>>id && ifs>>accountName && ifs>>cache){
         //压入已有id
         studentIds.insert(id);
+        //压入map
+        studentAccounts.insert(make_pair(id, accountName));
     }
     ifs.close();    //关闭
     teacherIds.clear();
@@ -51,10 +57,12 @@ void Administrator::initIdSet(){
         return;
     }
     id = -1;    
+    accountName = "";
     cache = "";  //缓存
-    while(ifs>>id && ifs>>cache && ifs>>cache){
+    while(ifs>>id && ifs>>accountName && ifs>>cache){
         //压入已有id
         teacherIds.insert(id);
+        teacherAccounts.insert(make_pair(id, accountName));
     }
     ifs.close();    //关闭
     cout<<"Init ids records ... Successed.\n";\
@@ -135,9 +143,11 @@ void Administrator::addPerson(){
     if(accountType == STUDENT_HEAD_BOY_TYPE){
         //学生
         studentIds.insert(id);
+        studentAccounts.insert(make_pair(id, accountName));
     }
     else{
         teacherIds.insert(id);
+        teacherAccounts.insert(make_pair(id, accountName));
     }
     cout<<"Add new account "<<accountName<<" ... Successed.\n";
     //关闭文件
@@ -147,7 +157,29 @@ void Administrator::addPerson(){
 
 //查看账号
 void Administrator::showPersons() const{
-
+    int accountType = -1;   //要查看的账号类型
+    // vector<int> candidates{STUDENT_HEAD_BOY_TYPE, TEACHER_TYPE};
+    // inputSpecificValue(accountType, "Please select the accounts you want to look:"
+    // + to_string(STUDENT_HEAD_BOY_TYPE)  + "-Student, " + to_string(TEACHER_TYPE) + "-Teacher): ",
+    // candidates);
+    do{
+        input(accountType, "Please select the accounts you want to look: ("
+                    + to_string(STUDENT_HEAD_BOY_TYPE)  + "-Student, " + to_string(TEACHER_TYPE) + "-Teacher): ");
+    }while(accountType != STUDENT_HEAD_BOY_TYPE && accountType != TEACHER_TYPE);
+    //然后就可以打印
+    //学生打印学生的
+    if(accountType == STUDENT_HEAD_BOY_TYPE){
+        for(auto it = studentAccounts.begin(); it != studentAccounts.end(); ++ it){
+            cout<<"Student id: "<<it->first<<", Account name: "<<it->second<<endl;
+        }
+    }
+    else{
+        for(auto it = teacherAccounts.begin(); it != teacherAccounts.end(); ++ it){
+            cout<<"Teacher id: "<<it->first<<", Teacher name: "<<it->second<<endl;
+        }
+    }
+    cout<<"Already shown all accounts info you query.\n";
+    return;
 }
 
 //查看机房状态

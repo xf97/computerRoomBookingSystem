@@ -3,7 +3,8 @@
     "vector": "cpp",
     "fstream": "cpp",
     "iostream": "cpp",
-    "functional": "cpp"
+    "functional": "cpp",
+    "ostream": "cpp"
   },
   "terminal.integrated.fontFamily": "Menlo for Powerline",
   "C_Cpp_Runner.cCompilerPath": "/usr/bin/gcc",

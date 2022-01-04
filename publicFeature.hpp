@@ -47,7 +47,7 @@ void input(inputType & content, //接收输入的参数
             //先clear再sync
             cin.clear();
             //cin.sync(); ubuntu上无法清空
-            cin.ignore(INT64_MAX, '\n');
+            cin.ignore(INT64_MAX, '\n');    //清空缓冲区直到清空到换行，ubuntu上换行是lf
             //要清空输入缓冲区
             //cin.get();
             cout<<"Input is wrong type, please check your input and reinput agian: ";
@@ -57,6 +57,16 @@ void input(inputType & content, //接收输入的参数
     }
 }
 
+//再次抽象出模板函数，输入必须为指定类型的指定值
+template<typename inputType>
+void inputSpecificValue(inputType & content, 
+                                                  const string & tips, 
+                                                  const vector<inputType> & candidateValues){
+    do{
+        input(content, tips);
+    }while(find(candidateValues.begin(), candidateValues.end(), content) == candidateValues.end());
+    //在未输入指定值时继续执行
+}
 
 
 // //获取文件信息
@@ -187,8 +197,8 @@ void LogIn(const string & _fileName, const int _type){
     input(accountName, "Please input your account name: ");
     input(password, "Please input your password: ");
     // 产生哈希值
-    // hash<string> hashStr;
-    // size_t hashPassword = hashStr(password);    //仿函数调用 
+    hash<string> hashStr;
+    string hashPassword = to_string(hashStr(password));    //仿函数调用 
     //现在应该是要校验
     bool successFlag = false;   //登录成功标志
     if(_type == STUDENT_HEAD_BOY_TYPE){
@@ -199,8 +209,9 @@ void LogIn(const string & _fileName, const int _type){
         //逐个读取，三个一组
         while(ifs>>realId && ifs>>realAccountName && ifs>>realPassword){
             //匹配
-            if(realId == id && realAccountName == accountName && realPassword == password){
+            if(realId == id && realAccountName == accountName && realPassword == hashPassword){
                 //初始化指针
+                cout<<"Successful login.\n";
                 successFlag = true;
                 person = new StudentHeadBoy(id, accountName, password);
             }
@@ -214,9 +225,10 @@ void LogIn(const string & _fileName, const int _type){
         //逐个读取，三个一组
         while(ifs>>realId && ifs>>realAccountName && ifs>>realPassword){
             //匹配
-            if(realId == id && realAccountName == accountName && realPassword == password){
+            if(realId == id && realAccountName == accountName && realPassword == hashPassword){
                 //初始化指针
                 successFlag = true;
+                cout<<"Successful login.\n";
                 person = new Teacher(id, accountName, password);
             }
         }

@@ -23,7 +23,15 @@ StudentHeadBoy::~StudentHeadBoy(){
 
 //重写纯虚函数
 void StudentHeadBoy::identitySubMenu(){
-
+    cout<<"Welcome student -- "<<getAccountName()<<endl;
+    cout<<"----------------------------------------- \n";
+    cout<<"| 1. creat a new booking order \n";
+    cout<<"| 2. check my all orders \n";
+    cout<<"| 3. check all orders at present \n";
+    cout<<"| 4. cancel my order \n";
+    cout<<"| 0. log out \n";
+    cout<<"----------------------------------------- \n";
+    return;
 }
 
 //申请预约

@@ -211,9 +211,11 @@ void LogIn(const string & _fileName, const int _type){
             //匹配
             if(realId == id && realAccountName == accountName && realPassword == hashPassword){
                 //初始化指针
-                cout<<"Successful login.\n";
+                //cout<<"Successful login.\n";
                 successFlag = true;
                 person = new StudentHeadBoy(id, accountName, password);
+                //进入子菜单
+                studentMenu();
             }
         }
     }
@@ -260,6 +262,50 @@ void LogIn(const string & _fileName, const int _type){
     // else{
     //     cout<<"Failed login, please check your account name and password, and re-input again.\n";
     // }
+    return;
+}
+
+//进入学生代表子菜单页面
+//此处传入的是指针的引用
+void studentMenu(Identity * &student){
+    int choose = -1;
+    while(choose != 0){
+        //以指针形式传入基类指针，通过动态多态转成派生类指针后行使子类功能
+        student->identitySubMenu();   //由于此函数基类纯虚，因此此处调用的是student子类的
+        //转换指针
+        StudentHeadBoy * realStudent = (StudentHeadBoy *) student;
+        //Administrator * realAdmin =  (Administrator *)admin;
+        input(choose, "Please give your choose: ");
+        switch (choose)
+        {
+            case 1:
+                //申请预约
+                realStudent->applyOrder();
+                break;
+            case 2:
+                //查看我的预约
+                realStudent->showMyOrders();
+                break;
+            case 3:
+                //查看当前所有的预约
+                realStudent->showAllOrders();
+                break;
+            case 4:
+                //取消我的预约
+                realStudent->cancelOrder();
+                break;
+            case 0:
+                //退出菜单，可能面临数据的写入
+                break;
+            default:
+                cout<<"You have entered a wrong input, please check your input and reinput again.\n";
+                break;
+            }
+        }
+    cout<<"Already back to upper menu, press any key to continue.\n";
+    //要注意回收指针空间，两个指针指向了同一个内存
+    delete student;
+    student = nullptr;
     return;
 }
 

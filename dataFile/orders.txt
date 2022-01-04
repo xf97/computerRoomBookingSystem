@@ -1,0 +1,2 @@
+date: 1 interval (1-morning, 2-afternoon):  computer room id: 2 student id: 6 student name: xiaofeng3 apply status (1-examining): 1
+date: 1 interval (1-morning, 2-afternoon):  computer room id: 3 student id: 6 student name: xiaofeng3 apply status (1-examining): 1

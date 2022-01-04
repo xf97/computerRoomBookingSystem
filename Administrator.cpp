@@ -3,12 +3,12 @@
 
 
 //导入于其他头文件中定义的函数，避免循环依赖
-extern void LogIn(const string & _fileName, const int _type);
-template<typename inputType> extern  void input(inputType & content,  const string & tips);
-extern void pauseLinuxShell();
-template<typename inputType> extern void inputSpecificValue(inputType & content, 
-                                                  const string & tips, 
-                                                  const vector<inputType> &  candidateValues);
+// extern void LogIn(const string & _fileName, const int _type);
+// template<typename inputType> extern  void input(inputType & content,  const string & tips);
+// extern void pauseLinuxShell();
+// template<typename inputType> extern void inputSpecificValue(inputType & content, 
+//                                                   const string & tips, 
+//                                                   const vector<inputType> &  candidateValues);
 
 //管理员身份实现文件
 

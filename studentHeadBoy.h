@@ -3,6 +3,14 @@
 
 //定义学生代表类
 #include "identity.h"
+#include "computerRoom.h"
+#include <fstream>
+#include "Constant.h"
+#include <algorithm>
+#include <vector>
+#include <random>
+#include <ctime>
+#include "publicFeature.hpp"
 
 
 class StudentHeadBoy: public Identity{
@@ -22,6 +30,8 @@ public:
     int getId() const;
 private:
     int id; //学生学号
+    void init();
+    vector<ComputerRoom> computerRoomsVec;
 };
 
 #endif

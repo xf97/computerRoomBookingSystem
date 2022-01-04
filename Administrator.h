@@ -5,7 +5,7 @@
 #include "identity.h"
 #include <functional> //为使用哈希函数
 #include <iostream>
-//#include "publicFeature.hpp"    //使用一些公共函数，注意此处容易存在循环包含的问题
+#include "publicFeature.hpp"    //使用一些公共函数，注意此处容易存在循环包含的问题
 #include <string>
 #include <fstream>
 #include "Constant.h"

@@ -28,7 +28,7 @@ Administrator::~Administrator(){
 
 }
 
-//初始化已有的id集合
+//初始化信息
 void Administrator::init(){
     //读文件
     //先读学生的
@@ -51,11 +51,7 @@ void Administrator::init(){
     ifs.close();    //关闭
     teacherIds.clear();
     ifs.open(TEACHER_FILE, ios::in);
-    //判断是否打开
-    if(!ifs.is_open()){
-        cerr<<"Open data file failed --- "<<TEACHER_FILE<<", please check.\n";
-        return;
-    }
+    //判断是否打开kaishidu
     id = -1;    
     accountName = "";
     cache = "";  //缓存
@@ -65,7 +61,19 @@ void Administrator::init(){
         teacherAccounts.insert(make_pair(id, accountName));
     }
     ifs.close();    //关闭
-    cout<<"Init ids records ... Successed.\n";\
+    //机房信息
+    ifs.open(COMPUTER_FILE, ios::in);
+    if(!ifs.is_open()){
+        cerr<<"Open data file failed --- "<<COMPUTER_FILE<<", please check.\n";
+        return;
+    }
+    ComputerRoom temp;
+    //开始读
+    while(ifs>>temp.id && ifs>>temp.capacity){
+        computerRoomsVec.push_back(temp);   //值拷贝构造？
+    }
+    ifs.close();
+    cout<<"Init data ... Successed.\n";
     //cout<<studentIds.size()<<" "<<teacherIds.size()<<endl;
     return;
 }
@@ -184,12 +192,20 @@ void Administrator::showPersons() const{
 
 //查看机房状态
 void Administrator::showComputerRooms() const{
-
+    cout<<"Computer rooms informations are shown below: \n";
+    for(auto it = computerRoomsVec.begin(); it != computerRoomsVec.end(); ++ it){
+        cout<<"Computer room id: "<<it->id<<", Computer room capacity: "<<it->capacity<<endl;
+    }
+    cout<<"Already shown all informations info you query.\n";
+    return;
 }
 
 //清空数据
 void Administrator::cleanData(){
-    
+    ofstream ofs(ORDER_FILE, ios::trunc);   //清空已有的预约记录
+    ofs.close();
+    cout<<"All past orders have been deleted.\n";
+    return;
 }
 
 //重写子菜单函数

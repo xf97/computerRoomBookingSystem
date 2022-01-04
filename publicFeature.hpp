@@ -241,7 +241,7 @@ void LogIn(const string & _fileName, const int _type){
         //逐个读取，三个一组
         while(ifs>>realAccountName && ifs>>realPassword){
             //匹配
-            if(realAccountName == accountName && realPassword == password){
+            if(realAccountName == accountName && realPassword == hashPassword){
                 //初始化指针
                 successFlag = true;
                 person = new Administrator(accountName, password);

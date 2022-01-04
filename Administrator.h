@@ -12,6 +12,7 @@
 #include <set>  //为了使账号去重
 #include <vector>
 #include <map>
+#include "computerRoom.h"
 
 class Administrator: public Identity{
 public:
@@ -29,6 +30,7 @@ private:
     set<int> teacherIds ;   //老师id集合
     map<int, string> studentAccounts;   //学生账号集合
     map<int, string> teacherAccounts;   //老师账号集合
+    vector<ComputerRoom> computerRoomsVec;
 };
 
 #endif

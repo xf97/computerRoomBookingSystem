@@ -4,7 +4,8 @@
     "fstream": "cpp",
     "iostream": "cpp",
     "functional": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "iosfwd": "cpp"
   },
   "terminal.integrated.fontFamily": "Menlo for Powerline",
   "C_Cpp_Runner.cCompilerPath": "/usr/bin/gcc",

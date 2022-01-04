@@ -161,6 +161,8 @@ void administratorMenu(Identity * &admin){
     return;
 }
         
+//前置声明
+void studentMenu(Identity * &student); 
 
 //登录函数
 //_fileName, 操作的文件名
@@ -215,7 +217,7 @@ void LogIn(const string & _fileName, const int _type){
                 successFlag = true;
                 person = new StudentHeadBoy(id, accountName, password);
                 //进入子菜单
-                studentMenu();
+                studentMenu(person);
             }
         }
     }

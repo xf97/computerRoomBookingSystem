@@ -94,12 +94,12 @@ void StudentHeadBoy::applyOrder(){
         return;
     }
     //往里面写
-    ofs<<"date: "<<date<<" ";
-    ofs<<"interval (1-morning, 2-afternoon): "<<internal<<" ";
-    ofs<<"computer room id: "<<room<<" ";
-    ofs<<"student id: "<<getId()<<" ";
-    ofs<<"student name: "<<getAccountName()<<" ";
-    ofs<<"apply status (1-examining): "<<1<<endl;
+    ofs<<"date:"<<date<<" ";
+    ofs<<"interval:"<<interval<<" ";
+    ofs<<"computerRoomId:"<<room<<" ";
+    ofs<<"studentId:"<<getId()<<" ";
+    ofs<<"studentName:"<<getAccountName()<<" ";
+    ofs<<"applyStatus:"<<1<<endl;
 
     ofs.close();
     cout<<"Create new booking order ... Successed.\n";
@@ -108,7 +108,7 @@ void StudentHeadBoy::applyOrder(){
 
 //查看自身的预约
 void StudentHeadBoy::showMyOrders() const{
-
+    Orders order;
 }
 
 //查看所有人的预约

@@ -11,6 +11,7 @@
 #include <random>
 #include <ctime>
 #include "publicFeature.hpp"
+#include "Order.h"
 
 
 class StudentHeadBoy: public Identity{

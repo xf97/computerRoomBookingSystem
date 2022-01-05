@@ -15,6 +15,7 @@ using namespace std;
 //定义于此的功能是一些公共函数，或者模板函数
 
 
+
 //抽象为模板函数
 template<typename inputType>
 void input(inputType & content, //接收输入的参数
@@ -46,6 +47,17 @@ void inputSpecificValue(inputType & content,
     }while(find(candidateValues.begin(), candidateValues.end(), content) == candidateValues.end());
     //在未输入指定值时继续执行
 }
+
+// //获得写入流
+// ifstream getIfstream(string filename){
+//     ifstream ifs(filename, ios::in);
+//     if(!ifs.is_open()){
+//         cerr<<"Open data file failed --- "<<filename<<endl;
+//         ifs.close();
+//         return ifs;
+//     }
+//     return ifs;
+// }
 
 
 // //获取文件信息

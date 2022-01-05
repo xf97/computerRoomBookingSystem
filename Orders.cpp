@@ -34,6 +34,10 @@ Orders::Orders(){
     size = 0;
     //ifs自动以空格为分割
     while(getline(ifs, content)){
+        if(content.empty()){
+            //跳过空行
+            continue;
+        }
         //截取
         int index = 0;
         map<string, string> temp;
@@ -51,6 +55,13 @@ Orders::Orders(){
         orders.insert(make_pair(size, temp));
     }
     ifs.close();
+    // for(auto it = orders.begin(); it != orders.end(); ++ it){
+    //     cout<<it->first<<endl;
+    //     for(auto vit = (*it).second.begin(); vit != (*it).second.end(); ++ vit){
+    //         cout<<vit->first<<" "<<vit->second<<endl;
+    //     }
+    //     cout<<"*****\n";
+    // }
     return;
 }
 

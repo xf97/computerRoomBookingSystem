@@ -41,14 +41,60 @@ void Teacher::showAllOrders() const{
             cout<<", Apply date: "<<vector<string>{"Monday", "Tuesday", "Wendesday", "Thusday", "Friday"}[atoi(orders.getValue(i, "date").c_str())];
             cout<<", Interval: "<<(orders.getValue(i, "interval") == "1" ? "Morning" : "Afternoon");
             cout<<", Computer room: "<<orders.getValue(i, "computerRoomId");
-            cout<<", Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Failed"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
+            cout<<", Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Rejected"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
             cout<<"**************************\n";
         }
     }
 }
 
 void Teacher::examineOrder(){
-
+   Orders orders;  //当前所有的预约记录
+    if(orders.getSize() == 0){
+        cerr<<"No orders your applied have  been saved.\n";
+        return;
+    }
+    cout<<"The orders that can be canceled are shown below:\n";
+    vector<int> indexVec;
+    int index = 1;
+    for(int i = 1; i <= orders.getSize(); ++ i){
+        if(orders.getValue(i, "applyStatus") == "1"){
+                indexVec.push_back(i);  //这里存储的是符合条件的key值
+                cout<<"#"<<index<<", ";
+                cout<<"Apply date: "<<vector<string>{"Monday", "Tuesday", "Wendesday", "Thusday", "Friday"}[atoi(orders.getValue(i, "date").c_str())];
+                cout<<" Interval: "<<(orders.getValue(i, "interval") == "1" ? "Morning" : "Afternoon");
+                cout<<" Computer room: "<<orders.getValue(i, "computerRoomId");
+                cout<<" Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Rejected"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
+                cout<<"**************************\n";
+                ++ index;
+            }
+    }
+    int select = -1;    //选择
+    do{
+        input(select, "Please choose a order you want to change (0-back to upperr menu): ");
+        if(select == 0){
+            break;
+        }
+    } while(select > indexVec.size());
+    if(select > 0 && select <= indexVec.size()){
+        //orders.setValue(indexVec[select - 1], "applyStatus", "0");
+        //cout<<indexVec[select - 1]<<" "<<orders.getValue(indexVec[select - 1], "applyStatus")<<endl;
+        int result = -1;
+        do{
+            input(result, "For order #" + to_string(select) + ", Please give your eaxmine decesion (1 - Accept, 2 - Reject): ");
+        } while(result != 1 && result != 2);
+        if(result == 1){
+            orders.setValue(indexVec[select - 1], "applyStatus", "2");
+        }
+        else{
+            orders.setValue(indexVec[select - 1], "applyStatus", "3");
+        }
+        orders.updateOrder();   //写文件保存
+        cout<<"Examine order ... Successed\n";
+    }
+    else{
+        cout<<"Examine order ... Roll back\n";
+    }
+    return;
 }
 
 void Teacher::setId(const int _id){

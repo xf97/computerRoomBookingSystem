@@ -122,7 +122,7 @@ void StudentHeadBoy::showMyOrders() const{
                 cout<<"Apply date: "<<vector<string>{"Monday", "Tuesday", "Wendesday", "Thusday", "Friday"}[atoi(orders.getValue(i, "date").c_str())];
                 cout<<" Interval: "<<(orders.getValue(i, "interval") == "1" ? "Morning" : "Afternoon");
                 cout<<" Computer room: "<<orders.getValue(i, "computerRoomId");
-                cout<<" Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Failed"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
+                cout<<" Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Rejected"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
                 cout<<"**************************\n";
             }
         }
@@ -143,7 +143,7 @@ void StudentHeadBoy::showAllOrders() const{
             cout<<" Apply date: "<<vector<string>{"Monday", "Tuesday", "Wendesday", "Thusday", "Friday"}[atoi(orders.getValue(i, "date").c_str())];
             cout<<" Interval: "<<(orders.getValue(i, "interval") == "1" ? "Morning" : "Afternoon");
             cout<<" Computer room: "<<orders.getValue(i, "computerRoomId");
-            cout<<" Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Failed"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
+            cout<<" Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Rejected"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
             cout<<"**************************\n";
         }
     }
@@ -167,15 +167,18 @@ void StudentHeadBoy::cancelOrder(){
                 cout<<"Apply date: "<<vector<string>{"Monday", "Tuesday", "Wendesday", "Thusday", "Friday"}[atoi(orders.getValue(i, "date").c_str())];
                 cout<<" Interval: "<<(orders.getValue(i, "interval") == "1" ? "Morning" : "Afternoon");
                 cout<<" Computer room: "<<orders.getValue(i, "computerRoomId");
-                cout<<" Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Failed"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
+                cout<<" Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Rejected"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
                 cout<<"**************************\n";
                 ++ index;
             }
     }
     int select = -1;    //选择
     do{
-        input(select, "Please choose one order you want to cancel (0-back to upperr menu): ");
-    } while(select <= 0 &&  select >= indexVec.size());
+        input(select, "Please choose a order you want to cancel (0-back to upperr menu): ");
+        if(select == 0){
+            break;
+        }
+    } while(select > indexVec.size());
     if(select > 0 && select <= indexVec.size()){
         orders.setValue(indexVec[select - 1], "applyStatus", "0");
         //cout<<indexVec[select - 1]<<" "<<orders.getValue(indexVec[select - 1], "applyStatus")<<endl;

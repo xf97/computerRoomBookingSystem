@@ -222,6 +222,8 @@ void LogIn(const string & _fileName, const int _type){
                 //初始化指针
                 //cout<<"Successful login.\n";zicaidan
                 //进入子菜单
+                successFlag = true;
+                person = new StudentHeadBoy(id, accountName, password);
                 studentMenu(person);
             }
         }
@@ -236,7 +238,7 @@ void LogIn(const string & _fileName, const int _type){
             if(realId == id && realAccountName == accountName && realPassword == hashPassword){
                 //初始化指针
                 successFlag = true;
-                cout<<"Successful login.\n";
+                //cout<<"Successful login.\n";
                 person = new Teacher(id, accountName, password);
                 //进入教师身份子菜单
                 teacherMenu(person);

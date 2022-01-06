@@ -10,6 +10,7 @@
 
 #include "identity.h"
 #include "Order.h"
+#include "publicFeature.hpp"
 
 class Teacher: public Identity{
 public:

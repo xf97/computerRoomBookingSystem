@@ -60,7 +60,7 @@ Orders::Orders(){
     //     for(auto vit = (*it).second.begin(); vit != (*it).second.end(); ++ vit){
     //         cout<<vit->first<<" "<<vit->second<<endl;
     //     }
-    //     cout<<"*****\n";
+    // cout<<"*****\n";
     // }
     return;
 }
@@ -76,7 +76,13 @@ void Orders::setValue(int key1, string key2, string value){
 string Orders::getValue(int key1, string key2){
     try
     {
-        return orders[key1][key2];
+        if(orders.find(key1) != orders.end()){
+            if(orders[key1].find(key2) != orders[key1].end()){
+                return orders[key1][key2];
+            }
+        }
+        //cout<<key1<<" &&& "<<key2<<endl;
+        throw "No specify key";
     }
     catch(const std::exception& e)
     {
@@ -85,6 +91,23 @@ string Orders::getValue(int key1, string key2){
     }
 }
 
+//直接就是刷新整个文件
 void Orders::updateOrder(){
-
+    //更新判空
+    if(size == 0){
+        return;
+    }
+    else{
+        ofstream ofs(ORDER_FILE, ios::out | ios::trunc);    //要对原有数据置空
+        for(int i = 0; i < size; ++ i){
+            ofs<<"date:"<<orders[i]["date"]<<" ";
+            ofs<<"interval:"<<orders[i]["interval"]<<" ";
+            ofs<<"computerRoomId:"<<orders[i]["computerRoomId"]<<" ";
+            ofs<<"studentId:"<<orders[i]["studentId"]<<" ";
+            ofs<<"studentName:"<<orders[i]["studentName"]<<" ";
+            ofs<<"applyStatus:"<<orders[i]["applyStatus"]<<endl;
+        }
+        ofs.close();
+        cout<<"Update orders ... Done!\n";
+    }
 }

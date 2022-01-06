@@ -1,3 +1,2 @@
-
-date:1 interval:1 computerRoomId:1 studentId:6 studentName:xiaofeng3 applyStatus:1
-date:2 interval:2 computerRoomId:2 studentId:5 studentName:xiaofeng2 applyStatus:1
+date:1 interval:1 computerRoomId:1 studentId:101 studentName:xf applyStatus:1
+date:2 interval:2 computerRoomId:2 studentId:102 studentName:gyj applyStatus:1

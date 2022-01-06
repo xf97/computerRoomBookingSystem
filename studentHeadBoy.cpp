@@ -108,12 +108,47 @@ void StudentHeadBoy::applyOrder(){
 
 //查看自身的预约
 void StudentHeadBoy::showMyOrders() const{
-    Orders order;
+    Orders orders;  //初始化预约单
+    if(orders.getSize() == 0){
+        cout<<"No orders apply.\n";
+        return;
+    }
+    else{
+        //读取，以学号来判断
+        for(int i = 1; i <= orders.getSize(); ++ i){
+            if(orders.getValue(i, "studentId") == to_string(getId())){
+                //学号匹配，那么打印
+                //0-取消的预约，1-审核中，2-预约成功，3-预约失败
+                cout<<"Apply date: "<<vector<string>{"Monday", "Tuesday", "Wendesday", "Thusday", "Friday"}[atoi(orders.getValue(i, "date").c_str())];
+                cout<<" Interval: "<<(orders.getValue(i, "interval") == "1" ? "Morning" : "Afternoon");
+                cout<<" Computer room: "<<orders.getValue(i, "computerRoomId");
+                cout<<" Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Failed"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
+                cout<<"**************************\n";
+            }
+        }
+    }
 }
 
 //查看所有人的预约
 void StudentHeadBoy::showAllOrders() const{
-
+    Orders orders;  //初始化预约单
+    if(orders.getSize() == 0){
+        cout<<"No orders apply.\n";
+        return;
+    }
+    else{
+        //读取，以学号来判断
+        for(int i = 1; i <= orders.getSize(); ++ i){
+            //学号匹配，那么打印
+            //0-取消的预约，1-审核中，2-预约成功，3-预约失败
+            cout<<"Apply student account name: "<<orders.getValue(i, "studentName");
+            cout<<" Apply date: "<<vector<string>{"Monday", "Tuesday", "Wendesday", "Thusday", "Friday"}[atoi(orders.getValue(i, "date").c_str())];
+            cout<<" Interval: "<<(orders.getValue(i, "interval") == "1" ? "Morning" : "Afternoon");
+            cout<<" Computer room: "<<orders.getValue(i, "computerRoomId");
+            cout<<" Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Failed"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
+            cout<<"**************************\n";
+        }
+    }
 }
    
 //取消预约

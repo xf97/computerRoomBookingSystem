@@ -80,6 +80,41 @@ void administratorMenu(Identity * &admin){
     return;
 }
         
+//进入教师子菜单页面
+void teacherMenu(Identity * & teacher){
+    int choose = -1;
+    while(choose != 0){
+        //以指针形式传入基类指针，通过动态多态转成派生类指针后行使子类功能
+        teacher->identitySubMenu();   //由于此函数基类纯虚，因此此处调用的是student子类的
+        //转换指针
+        Teacher * realTeacher = (Teacher *) teacher;
+        //Administrator * realAdmin =  (Administrator *)admin;
+        input(choose, "Please give your choose: ");
+        switch (choose)
+        {
+            case 1:
+                //查看预约
+                realTeacher->showAllOrders();
+                break;
+            case 2:
+                //审核预约
+                realTeacher->examineOrder();
+                break;
+            case 0:
+                //退出菜单，可能面临数据的写入
+                break;
+            default:
+                cout<<"You have entered a wrong input, please check your input and reinput again.\n";
+                break;
+            }
+        }
+    cout<<"Already back to upper menu, press any key to continue.\n";
+    //要注意回收指针空间，两个指针指向了同一个内存
+    delete teacher; //因为传入引用，因此在此处delete，可以作用到指针，如果传入的指针不改变，二维指针相当于指针引用
+    teacher = nullptr;
+    return;
+}
+
 //进入学生代表子菜单页面
 //此处传入的是指针的引用
 void studentMenu(Identity * &student){
@@ -185,9 +220,7 @@ void LogIn(const string & _fileName, const int _type){
             //匹配
             if(realId == id && realAccountName == accountName && realPassword == hashPassword){
                 //初始化指针
-                //cout<<"Successful login.\n";
-                successFlag = true;
-                person = new StudentHeadBoy(id, accountName, password);
+                //cout<<"Successful login.\n";zicaidan
                 //进入子菜单
                 studentMenu(person);
             }
@@ -198,7 +231,6 @@ void LogIn(const string & _fileName, const int _type){
         //读取文件
         int realId = 0;
         string realAccountName = "", realPassword = "";
-        //逐个读取，三个一组
         while(ifs>>realId && ifs>>realAccountName && ifs>>realPassword){
             //匹配
             if(realId == id && realAccountName == accountName && realPassword == hashPassword){
@@ -206,6 +238,8 @@ void LogIn(const string & _fileName, const int _type){
                 successFlag = true;
                 cout<<"Successful login.\n";
                 person = new Teacher(id, accountName, password);
+                //进入教师身份子菜单
+                teacherMenu(person);
             }
         }
     }

@@ -11,7 +11,7 @@
       "stopAtEntry": false,
       "cwd": "/home/xiaofeng/桌面/MyGithub/computerRoomBookingSystem",
       "environment": [],
-      "program": "/home/xiaofeng/桌面/MyGithub/computerRoomBookingSystem/build/Debug/outDebug",
+      "program": "/home/xiaofeng/桌面/MyGithub/computerRoomBookingSystem/build/Release/outRelease",
       "internalConsoleOptions": "openOnSessionStart",
       "MIMode": "gdb",
       "miDebuggerPath": "/usr/bin/gdb",

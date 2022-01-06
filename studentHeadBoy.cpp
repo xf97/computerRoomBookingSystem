@@ -137,9 +137,7 @@ void StudentHeadBoy::showAllOrders() const{
         return;
     }
     else{
-        //读取，以学号来判断
         for(int i = 1; i <= orders.getSize(); ++ i){
-            //学号匹配，那么打印
             //0-取消的预约，1-审核中，2-预约成功，3-预约失败
             cout<<"Apply student account name: "<<orders.getValue(i, "studentName");
             cout<<" Apply date: "<<vector<string>{"Monday", "Tuesday", "Wendesday", "Thusday", "Friday"}[atoi(orders.getValue(i, "date").c_str())];
@@ -153,7 +151,41 @@ void StudentHeadBoy::showAllOrders() const{
    
 //取消预约
 void StudentHeadBoy::cancelOrder(){
-    
+    Orders orders;  //当前所有的预约记录
+    if(orders.getSize() == 0){
+        cerr<<"No orders your applied have  been saved.\n";
+        return;
+    }
+    cout<<"The orders that can be canceled are shown below:\n";
+    vector<int> indexVec;
+    int index = 1;
+    for(int i = 1; i <= orders.getSize(); ++ i){
+        if(to_string(getId()) == orders.getValue(i, "studentId") &&
+            (orders.getValue(i, "applyStatus") == "1" || orders.getValue(i, "applyStatus") == "2")){
+                indexVec.push_back(i);  //这里存储的是符合条件的key值
+                cout<<"#"<<index<<", ";
+                cout<<"Apply date: "<<vector<string>{"Monday", "Tuesday", "Wendesday", "Thusday", "Friday"}[atoi(orders.getValue(i, "date").c_str())];
+                cout<<" Interval: "<<(orders.getValue(i, "interval") == "1" ? "Morning" : "Afternoon");
+                cout<<" Computer room: "<<orders.getValue(i, "computerRoomId");
+                cout<<" Apply status: " + vector<string>{"Canceled", "Applying", "Successed", "Failed"}[atoi(orders.getValue(i, "applyStatus").c_str())]<<endl;
+                cout<<"**************************\n";
+                ++ index;
+            }
+    }
+    int select = -1;    //选择
+    do{
+        input(select, "Please choose one order you want to cancel (0-back to upperr menu): ");
+    } while(select <= 0 &&  select >= indexVec.size());
+    if(select > 0 && select <= indexVec.size()){
+        orders.setValue(indexVec[select - 1], "applyStatus", "0");
+        //cout<<indexVec[select - 1]<<" "<<orders.getValue(indexVec[select - 1], "applyStatus")<<endl;
+        orders.updateOrder();   //写文件保存
+        cout<<"Cancel order ... Successed\n";
+    }
+    else{
+        cout<<"Cancel order ... Roll back\n";
+    }
+    return;
 }
 
 //set方法

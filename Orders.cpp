@@ -68,8 +68,9 @@ Orders::Orders(){
 
 //set
 void Orders::setValue(int key1, string key2, string value){
-    map<string, string> temp{make_pair(key2, value)};
-    orders.insert(make_pair(key1, temp)); 
+    //map<string, string> temp{make_pair(key2, value)};
+    //orders.insert(make_pair(key1, temp)); 
+    orders[key1][key2] = value; //直接覆写
 }
 
 //get
@@ -99,7 +100,7 @@ void Orders::updateOrder(){
     }
     else{
         ofstream ofs(ORDER_FILE, ios::out | ios::trunc);    //要对原有数据置空
-        for(int i = 0; i < size; ++ i){
+        for(int i = 1; i <= size; ++ i){
             ofs<<"date:"<<orders[i]["date"]<<" ";
             ofs<<"interval:"<<orders[i]["interval"]<<" ";
             ofs<<"computerRoomId:"<<orders[i]["computerRoomId"]<<" ";
